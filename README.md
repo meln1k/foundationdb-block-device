@@ -16,9 +16,13 @@ While doing sequential reads it was able to saturate 1Gbit network link.
 
 Postrgres running in virtualbox showed 900 TPS on TPC-B pgbench workload with a database of size 1g.
 
+## How it works concurrent volume mounts?
+Currently there is a mechanism which relies on lease tokens and fdb transactions to transactionally
+transfer ownership to the new client and discard any in-flight write requests from the old one.
+
 ## Current status
-It's a prototype. There are several important featues which are not implemented yet 
-(such as fencing and volume size estimation) but it works and it's relatively fast!
+It's an early verion. There are several important featues which are not implemented yet 
+(such as IOPS limits and volume size estimation) but it works and it's relatively fast!
 
 ## How to use
 Commands are documented in the CLI:
@@ -86,7 +90,7 @@ and then driver translates NBD protocol into FoundationDB calls.
 ## Roadmap
 There are a few features planned in future releases, ordered by importance:
 
-1. Fencing every FDB transaction to protect block devices from being shared
+1. Bulk insert support via batch transactions
 2. IOPS isolation
 3. CSI implementation
 4. Snapshots
