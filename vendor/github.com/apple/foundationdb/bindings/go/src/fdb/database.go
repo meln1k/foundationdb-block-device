@@ -22,10 +22,8 @@
 
 package fdb
 
-/*
- #define FDB_API_VERSION 600
- #include <foundationdb/fdb_c.h>
-*/
+// #define FDB_API_VERSION 620
+// #include <foundationdb/fdb_c.h>
 import "C"
 
 import (
@@ -86,7 +84,7 @@ func retryable(wrapped func() (interface{}, error), onError func(Error) FutureNi
 	for {
 		ret, e = wrapped()
 
-		/* No error means success! */
+		// No error means success!
 		if e == nil {
 			return
 		}
@@ -96,8 +94,8 @@ func retryable(wrapped func() (interface{}, error), onError func(Error) FutureNi
 			e = onError(ep).Get()
 		}
 
-		/* If OnError returns an error, then it's not
-		/* retryable; otherwise take another pass at things */
+		// If OnError returns an error, then it's not
+		// retryable; otherwise take another pass at things
 		if e != nil {
 			return
 		}
@@ -125,7 +123,7 @@ func retryable(wrapped func() (interface{}, error), onError func(Error) FutureNi
 // Transaction and Database objects.
 func (d Database) Transact(f func(Transaction) (interface{}, error)) (interface{}, error) {
 	tr, e := d.CreateTransaction()
-	/* Any error here is non-retryable */
+	// Any error here is non-retryable
 	if e != nil {
 		return nil, e
 	}
@@ -165,7 +163,7 @@ func (d Database) Transact(f func(Transaction) (interface{}, error)) (interface{
 // Transaction, Snapshot and Database objects.
 func (d Database) ReadTransact(f func(ReadTransaction) (interface{}, error)) (interface{}, error) {
 	tr, e := d.CreateTransaction()
-	/* Any error here is non-retryable */
+	// Any error here is non-retryable
 	if e != nil {
 		return nil, e
 	}
@@ -216,7 +214,10 @@ func (d Database) LocalityGetBoundaryKeys(er ExactRange, limit int, readVersion 
 	tr.Options().SetLockAware()
 
 	bk, ek := er.FDBRangeKeys()
-	ffer := KeyRange{append(Key("\xFF/keyServers/"), bk.FDBKey()...), append(Key("\xFF/keyServers/"), ek.FDBKey()...)}
+	ffer := KeyRange{
+		append(Key("\xFF/keyServers/"), bk.FDBKey()...),
+		append(Key("\xFF/keyServers/"), ek.FDBKey()...),
+	}
 
 	kvs, e := tr.Snapshot().GetRange(ffer, RangeOptions{Limit: limit}).GetSliceWithError()
 	if e != nil {

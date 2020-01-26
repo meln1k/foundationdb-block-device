@@ -10,7 +10,7 @@
   revision = "2efee857e7cfd4f3d0138cc3cbb1b4966962b93a"
 
 [[projects]]
-  digest = "1:c72c7565e3da8985bc69dd1e3d34a4a0dbc5ccad4d11210d3fce9e3394f6fd4b"
+  digest = "1:f9c4b3349dd882bb31842cf70a4b31f269a789cf95b5fef46a35a4d3423393ee"
   name = "github.com/apple/foundationdb"
   packages = [
     "bindings/go/src/fdb",
@@ -19,8 +19,8 @@
     "bindings/go/src/fdb/tuple",
   ]
   pruneopts = "UT"
-  revision = "48d84faa3e6174deb7f852ef4d314f7bad1dfa57"
-  version = "6.0.18"
+  revision = "20566f2ff06a7e822b30e8cfd91090fbd863a393"
+  version = "6.2.15"
 
 [[projects]]
   digest = "1:6f9339c912bbdda81302633ad7e99a28dfa5a639c864061f1929510a9a64aa74"
