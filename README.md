@@ -21,7 +21,7 @@ Currently there is a mechanism which relies on lease tokens and fdb transactions
 transfer ownership to the new client and discard any in-flight write requests from the old one.
 
 ## Current status
-It's an early verion. There are several important featues which are not implemented yet 
+It's an early version. There are several important featues which are not implemented yet 
 (such as IOPS limits and volume size estimation) but it works and it's relatively fast!
 
 ## How to use
